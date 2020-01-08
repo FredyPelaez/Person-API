@@ -2,29 +2,33 @@ package com.esrx.person.service;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.esrx.person.model.Student;
 import com.esrx.person.repository.PersonRepository;
 
 @Service
-public abstract class PersonServiceImpl implements PersonService{
+public class PersonServiceImpl implements PersonService{
 	
-	private PersonRepository repository = new PersonRepository();
+	@Autowired
+	private PersonRepository repository;
+	
 	private static final AtomicLong counter = new AtomicLong();
 	
 	public Student findById(long id) {
-		for (Student student : repository.returnStudents()) {
-			if (student.getId()==id) {
-				return student;
+	
+		for (int i = 0; i < repository.getListStudent().size(); i++) {
+			if (repository.getListStudent().get(i).getId() == id) {
+				return repository.getListStudent().get(i);
 			}
 		}
 		return null;
 	}
 	
-	public Student findByName(String name) {
+	public Student findByName(String firstName) {
 		for (Student student: repository.returnStudents()) {
-			if (student.getFirstName().equalsIgnoreCase(name)) {
+			if (student.getFirstName().equalsIgnoreCase(firstName)) {
 				return student;
 			}
 		}
