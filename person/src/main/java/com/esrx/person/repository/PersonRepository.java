@@ -15,10 +15,6 @@ public class PersonRepository {
 	
 	List <Student> listStudent = new ArrayList<Student>();
 	
-	public void addStudent(Student student) {
-			listStudent.add(student);
-	}
-	
 	public List <Student> returnStudents(){
 		return listStudent;
 	}

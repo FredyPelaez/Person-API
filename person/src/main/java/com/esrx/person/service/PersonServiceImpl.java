@@ -1,5 +1,6 @@
 package com.esrx.person.service;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,14 @@ public class PersonServiceImpl implements PersonService{
 	
 	private static final AtomicLong counter = new AtomicLong();
 	
-	public Student findById(long id) {
+	public List<Student> findAllStudents(){
+		return repository.getListStudent();
+	}
 	
+	public Student findById(long id) {
 		for (int i = 0; i < repository.getListStudent().size(); i++) {
 			if (repository.getListStudent().get(i).getId() == id) {
-				return repository.getListStudent().get(i);
+				return repository.returnStudents().get(i);
 			}
 		}
 		return null;
@@ -35,10 +39,19 @@ public class PersonServiceImpl implements PersonService{
 		return null;
 	}
 	
-	public Student addStudent (Student student) {
+	public Student addStudent(Student student) {
 		student.setId(counter.incrementAndGet());
-		repository.addStudent(student);
+		repository.getListStudent().add(student);
 		return student;
+	}
+	
+	public Student updateStudent(Student student) {
+		repository.getListStudent().get((int) (student.getId()-1)).setLastName(student.getLastName());
+		return student;
+	}
+	
+	public void deleteStudent(Student student) {
+		repository.getListStudent().remove(student);
 	}
 	
 	public boolean isStudentExist (Student student) {
