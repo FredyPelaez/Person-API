@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,17 +33,32 @@ public class PersonController {
 	}
 	
 	@GetMapping("/student")
-	public ResponseEntity<Student> getStudent(@Valid @RequestParam(value = "id") Long id) {
-		Student student = personService.findById(id);
-		if(student == null) {
+	public ResponseEntity<Student> getStudent(@Valid @RequestParam( required = false, value = "id" ) Long id, @Valid @RequestParam( required =  false, value = "firstName") String firstName) {
+		Student student = null;
+		if(id >= 0 && id != null) {
+			student = personService.findById(id);
+		}
+		if(StringUtils.isNotBlank(firstName) && student == null) {
+			student = personService.findByName(firstName);
+		}
+		else {
 			ResponseEntity.badRequest().build();
+		}
+		return new ResponseEntity<Student>(student, HttpStatus.OK);
+	}
+	
+	@GetMapping("/student/name")
+	public ResponseEntity<Student> getStudent(@Valid @RequestParam( required =  false, value = "firstName") String firstName) {
+		Student student = null;
+		if(StringUtils.isNotBlank(firstName)) {
+			student = personService.findByName(firstName);
 		}
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
 	
 	@PostMapping("/student/add")
 	public ResponseEntity <Student> addStudent(@Valid @RequestBody Student student) {
-		if(student.getFirstName() == null || student.getLastName() == null ) {
+		if(StringUtils.isBlank(student.getFirstName()) || StringUtils.isBlank(student.getLastName())) {
 			ResponseEntity.badRequest().build();	
 		}
 		Student studentAdded = personService.addStudent(student);
@@ -51,6 +67,9 @@ public class PersonController {
 	
 	@PutMapping("student/modify")
 	public ResponseEntity <Student> changeStudent(@Valid @RequestBody Student student){
+		if(StringUtils.isBlank(student.getFirstName()) || StringUtils.isBlank(student.getFirstName())) {
+			ResponseEntity.badRequest().build();
+		}
 		Student studentChanged = personService.updateStudent(student);
 		return new ResponseEntity<Student> (studentChanged, HttpStatus.ACCEPTED);
 	}
@@ -58,6 +77,6 @@ public class PersonController {
 	@DeleteMapping("student/delete")
 	public ResponseEntity <Student> deleteStudent(@Valid @RequestBody Student student){
 		personService.deleteStudent(student);
-		return new ResponseEntity<Student> (student, HttpStatus.ACCEPTED);
+		return new ResponseEntity<Student> (HttpStatus.ACCEPTED);
 	}
 }

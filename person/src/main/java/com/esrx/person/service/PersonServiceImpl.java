@@ -3,6 +3,7 @@ package com.esrx.person.service;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +25,17 @@ public class PersonServiceImpl implements PersonService{
 	public Student findById(long id) {
 		for (int i = 0; i < repository.getListStudent().size(); i++) {
 			if (repository.getListStudent().get(i).getId() == id) {
-				return repository.returnStudents().get(i);
+				return repository.getListStudent().get(i);
 			}
 		}
 		return null;
 	}
 	
 	public Student findByName(String firstName) {
-		for (Student student: repository.returnStudents()) {
-			if (student.getFirstName().equalsIgnoreCase(firstName)) {
-				return student;
+		for (int i = 0; i < repository.getListStudent().size(); i++) {
+			if (repository.getListStudent().get(i).getFirstName().equals(firstName)) {
+				System.out.println(repository.getListStudent().get(i).getFirstName());
+				return repository.getListStudent().get(i);
 			}
 		}
 		return null;
@@ -46,12 +48,17 @@ public class PersonServiceImpl implements PersonService{
 	}
 	
 	public Student updateStudent(Student student) {
-		repository.getListStudent().get((int) (student.getId()-1)).setLastName(student.getLastName());
+		if(StringUtils.isNotBlank(student.getFirstName()) && student.getFirstName() != repository.getListStudent().get((int)(student.getId())-1).getFirstName()) {
+			repository.getListStudent().get((int) (student.getId()-1)).setFirstName(student.getFirstName());
+		}
+		if(StringUtils.isNotBlank(student.getLastName()) && student.getLastName() != repository.getListStudent().get((int)(student.getId())-1).getLastName()) {
+			repository.getListStudent().get((int) (student.getId()-1)).setLastName(student.getLastName());
+		}
 		return student;
 	}
 	
 	public void deleteStudent(Student student) {
-		repository.getListStudent().remove(student);
+		repository.getListStudent().remove((int)(student.getId())-1);
 	}
 	
 	public boolean isStudentExist (Student student) {

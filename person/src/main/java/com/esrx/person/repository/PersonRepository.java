@@ -14,8 +14,4 @@ import lombok.Data;
 public class PersonRepository {
 	
 	List <Student> listStudent = new ArrayList<Student>();
-	
-	public List <Student> returnStudents(){
-		return listStudent;
-	}
 }
