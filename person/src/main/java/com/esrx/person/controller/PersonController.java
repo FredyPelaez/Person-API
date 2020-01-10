@@ -33,25 +33,16 @@ public class PersonController {
 	}
 	
 	@GetMapping("/student")
-	public ResponseEntity<Student> getStudent(@Valid @RequestParam( required = false, value = "id" ) Long id, @Valid @RequestParam( required =  false, value = "firstName") String firstName) {
-		Student student = null;
-		if(id >= 0 && id != null) {
-			student = personService.findById(id);
-		}
-		if(StringUtils.isNotBlank(firstName) && student == null) {
-			student = personService.findByName(firstName);
-		}
-		else {
-			ResponseEntity.badRequest().build();
-		}
-		return new ResponseEntity<Student>(student, HttpStatus.OK);
-	}
-	
-	@GetMapping("/student/name")
-	public ResponseEntity<Student> getStudent(@Valid @RequestParam( required =  false, value = "firstName") String firstName) {
+	public ResponseEntity<Student> getStudent(@Valid @RequestParam( required = false, value = "firstName") String firstName, @Valid @RequestParam( required = false, value = "id" ) Long id) {
 		Student student = null;
 		if(StringUtils.isNotBlank(firstName)) {
 			student = personService.findByName(firstName);
+		}
+		if(id != null && student == null) {
+			student = personService.findById(id);
+		}
+		if (student == null){
+			ResponseEntity.badRequest().build();
 		}
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}

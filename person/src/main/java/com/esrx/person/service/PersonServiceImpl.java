@@ -34,7 +34,6 @@ public class PersonServiceImpl implements PersonService{
 	public Student findByName(String firstName) {
 		for (int i = 0; i < repository.getListStudent().size(); i++) {
 			if (repository.getListStudent().get(i).getFirstName().equals(firstName)) {
-				System.out.println(repository.getListStudent().get(i).getFirstName());
 				return repository.getListStudent().get(i);
 			}
 		}
@@ -61,7 +60,7 @@ public class PersonServiceImpl implements PersonService{
 		repository.getListStudent().remove((int)(student.getId())-1);
 	}
 	
-	public boolean isStudentExist (Student student) {
+	public boolean studentExist (Student student) {
 		return findByName(student.getFirstName()) !=null;
 	}
 }

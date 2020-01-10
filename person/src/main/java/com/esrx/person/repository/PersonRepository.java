@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.esrx.person.model.Student;
+import com.esrx.person.model.Teacher;
 
 import lombok.Data;
 
@@ -14,4 +15,5 @@ import lombok.Data;
 public class PersonRepository {
 	
 	List <Student> listStudent = new ArrayList<Student>();
+	List <Teacher> listTeacher = new ArrayList<Teacher>();
 }

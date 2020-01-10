@@ -18,5 +18,5 @@ public interface PersonService{
 	
 	public void deleteStudent(Student student);
 	
-	public boolean isStudentExist(Student student);
+	public boolean studentExist(Student student);
 }
