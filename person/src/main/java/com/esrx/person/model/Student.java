@@ -18,6 +18,9 @@ public class Student {
 	private long id;
 	@JsonProperty
 	@NotNull
+	private String type;
+	@JsonProperty
+	@NotNull
 	private String firstName;
 	@JsonProperty
 	@NotNull

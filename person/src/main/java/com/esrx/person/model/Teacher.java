@@ -12,14 +12,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Teacher {
+	
 	@JsonProperty
 	@NotNull
-	Long id;
+	private long id;
 	@JsonProperty
 	@NotNull
-	String firstName;
+	private String type;
 	@JsonProperty
 	@NotNull
-	String lastName;
+	private String firstName;
+	@JsonProperty
+	@NotNull
+	private String lastName;
 	
 }
