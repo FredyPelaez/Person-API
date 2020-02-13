@@ -30,20 +30,29 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+		<!-- Kafka -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+    	<!-- Orika -->
 		<dependency>
     		<groupId>ma.glasnost.orika</groupId>
     		<artifactId>orika-core</artifactId>
     		<version>1.4.6</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-		<dependency>
+		<!-- Log4j -->
+		  <dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>2.13.0</version>
+		  </dependency>
+		  
+		 <dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-core</artifactId>
 		    <version>2.13.0</version>
 		</dependency>
-				
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

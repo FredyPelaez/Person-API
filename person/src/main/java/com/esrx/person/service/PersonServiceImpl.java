@@ -2,7 +2,8 @@ package com.esrx.person.service;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class PersonServiceImpl implements PersonService{
 	@Autowired
 	private TeacherMapper teacherMapper;
 		
-	final static Logger logger = Logger.getLogger(PersonServiceImpl.class);
+	final static Logger logger = LogManager.getLogger(PersonServiceImpl.class);
 	
 	
 	/*Flags to define the type of the object*/
@@ -82,11 +83,11 @@ public class PersonServiceImpl implements PersonService{
 		try {
 			if(isStudent(type)) {			
 				logger.info("--- Calling Student Service ---");
-				studentService.findById(id);
+				return studentService.findById(id);
 			}
 			else if(isTeacher(type)) {
 				logger.info("--- Calling Teacher Service ---");
-				teacherService.findById(id);
+				return teacherService.findById(id);
 			}
 		}catch(Exception e) {
 			logger.error(e);

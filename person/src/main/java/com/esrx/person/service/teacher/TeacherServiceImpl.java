@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class TeacherServiceImpl implements TeacherService{
 	private PersonRepository repository;
 	
 	private static final AtomicLong counter = new AtomicLong();
-	final static Logger logger = Logger.getLogger(TeacherServiceImpl.class);
+	final static Logger logger = LogManager.getLogger(TeacherServiceImpl.class);
 	
 	public List<Teacher> findAllTeacher(){
 		logger.info("Retrieving information from Repository");
@@ -42,6 +43,7 @@ public class TeacherServiceImpl implements TeacherService{
 		try {
 			for (int i = 0; i < repository.getListTeacher().size(); i++) {
 				if (repository.getListTeacher().get(i).getId() == id) {
+					logger.info("Retrieving information from Repository");
 					return repository.getListTeacher().get(i);
 				}
 			}
@@ -56,6 +58,7 @@ public class TeacherServiceImpl implements TeacherService{
 		try {
 			for (int i = 0; i < repository.getListTeacher().size(); i++) {
 				if (repository.getListTeacher().get(i).getFirstName().equals(firstName) && repository.getListTeacher().get(i).getLastName().equals(lastName)) {
+					logger.info("Retrieving information from Repository");
 					return repository.getListTeacher().get(i);
 				}
 			}
@@ -77,6 +80,7 @@ public class TeacherServiceImpl implements TeacherService{
 		}catch(Exception e) {
 			logger.error(e);
 		}
+		logger.info("Teacher Modified");
 		return teacher;
 	}
 	
@@ -87,6 +91,7 @@ public class TeacherServiceImpl implements TeacherService{
 		}catch(Exception e) {
 			logger.error(e);
 		}
+		logger.info("Teacher Deleted");
 	}
 	
 	public Teacher teacherExist (Teacher teacher) {

@@ -5,7 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ import com.esrx.person.service.PersonServiceImpl;
 @RequestMapping(value = "/", produces = "application/json")
 public class PersonController {
 	
-	final static Logger logger = Logger.getLogger(PersonController.class);
+	final static Logger logger = LogManager.getLogger(PersonController.class);
 	
 	@Autowired
 	private PersonServiceImpl personService;
@@ -46,7 +47,7 @@ public class PersonController {
 	}
 	
 	@GetMapping("/teachers")
-	public ResponseEntity<List<Teacher>> getPersons(@Valid @RequestBody Object obj, @Valid @RequestParam( required = true, value = "type") String type) {
+	public ResponseEntity<List<Teacher>> getPersons() {
 		List<Teacher> response = null;
 		
 		try {
@@ -85,7 +86,7 @@ public class PersonController {
 		}
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	 
+	
 	@PostMapping("/person/add")
 	public ResponseEntity <Object> addPerson(@Valid @RequestBody Object obj, @Valid @RequestParam( required = true, value = "type") String type) {
 		Object response = new Object();

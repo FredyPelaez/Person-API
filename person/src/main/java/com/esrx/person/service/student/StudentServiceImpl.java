@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class StudentServiceImpl implements StudentService{
 	private PersonRepository repository;
 	
 	private static final AtomicLong counter = new AtomicLong();
-	final static Logger logger = Logger.getLogger(StudentServiceImpl.class);
+	final static Logger logger = LogManager.getLogger(StudentServiceImpl.class);
 	
 	public List<Student> findAllStudents(){
 		logger.info("Retrieving information from Repository");
@@ -42,6 +43,7 @@ public class StudentServiceImpl implements StudentService{
 		try {
 			for (int i = 0; i < repository.getListStudent().size(); i++) {
 				if (repository.getListStudent().get(i).getId() == id) {
+					logger.info("Retrieving information from Repository");
 					return repository.getListStudent().get(i);
 				}
 			}
@@ -56,6 +58,7 @@ public class StudentServiceImpl implements StudentService{
 		try {
 			for (int i = 0; i < repository.getListStudent().size(); i++) {
 				if (repository.getListStudent().get(i).getFirstName().equals(firstName) && repository.getListStudent().get(i).getLastName().equals(lastName)) {
+					logger.info("Retrieving information from Repository");
 					return repository.getListStudent().get(i);
 				}
 			}
@@ -77,6 +80,7 @@ public class StudentServiceImpl implements StudentService{
 		}catch(Exception e) {
 			logger.error(e);
 		}
+		logger.info("Student Modified");
 		return student;
 	}
 	
@@ -87,6 +91,7 @@ public class StudentServiceImpl implements StudentService{
 		}catch(Exception e) {
 			logger.error(e);
 		}
+		logger.info("Student Deleted");
 	}
 	
 	public Student studentExist (Student student) {
