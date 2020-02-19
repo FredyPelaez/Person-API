@@ -25,22 +25,26 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
         
+   		<!-- Lombok -->     
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
 		<!-- Kafka -->
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
+    	
     	<!-- Orika -->
 		<dependency>
     		<groupId>ma.glasnost.orika</groupId>
     		<artifactId>orika-core</artifactId>
     		<version>1.4.6</version>
 		</dependency>
+		
 		<!-- Log4j -->
 		  <dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
